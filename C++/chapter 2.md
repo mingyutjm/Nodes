@@ -25,6 +25,7 @@
 > 默认状态下，const 只在文件内有效 (可以用 extern 关键字解决)   
 
 **const 的引用**
+> （没有规定所引用对象必须是常量）
 > 可以绑定字面量
 ```C++
 const int& r1 = 42;
@@ -35,3 +36,6 @@ double dv = 3.14;
 const int& r1 = dv; // good
 int& r2 = dv;       // wrong
 ```
+**指针和 const**    
+> 指向常量的指针（不能修改值） ` const int* a = 0`   
+> （没有规定所指对象必须是常量）
