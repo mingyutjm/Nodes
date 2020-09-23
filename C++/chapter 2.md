@@ -37,5 +37,31 @@ const int& r1 = dv; // good
 int& r2 = dv;       // wrong
 ```
 **指针和 const**    
-> 指向常量的指针（不能修改值） ` const int* a = 0`   
-> （没有规定所指对象必须是常量）
+> 指向常量的指针（不能修改值） ` const int* a = 0`   （没有规定所指对象必须是常量）  
+> 常量指针（不能修改指向） `int* const p = 0`
+
++ 顶层 const 
+  + 表示指针本身是常量
++ 底层 const
+  + 表示所指对象是常量
+
+**constexpr指针**
+> constexpr 仅对指针有效（顶层 const），即常量指针，不能修改指向
+
+**类型别名**
+```C++
+typedef char *pstring
+const pstring cstr = 0  // 指向char的常量指针
+const char * cstr = 0;  // 指向常量的指针
+// 所以并不是简单替换，pstring的基本类型是指针，重写以后char是基本类型
+```
+**auto**
+> auto 一般会忽略掉顶层 const（指针本身是常量），底层 const会被保留下来  
+> 如果希望是顶层 const，需要明确指出 `const auto f = a`
+
+**decltype**
+> 从表达式的类型推断出要定义的变量类型，但是不想用该表达式的值初始化（与 auto 相比）  
+> 如果 `decltype` 使用的表达式是变量，则返回该变量的类型（包括顶层 const 和引用在内）  
+> **`decltype(*p)` 的结果类型是引用**  
+> **`decltype((variable))` 的结果永远是引用**
+
